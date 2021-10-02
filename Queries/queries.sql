@@ -151,7 +151,7 @@ FROM dept_manager AS dm
     INNER JOIN current_emp AS ce
         ON (dm.emp_no = ce.emp_no);
 		
---Department Retirees table
+--Department employees Retirees table
 SELECT ce.emp_no,
 ce.first_name,
 ce.last_name,
@@ -162,3 +162,24 @@ INNER JOIN dept_emp AS de
 ON (ce.emp_no = de.emp_no)
 INNER JOIN departments AS d
 ON (de.dept_no = d.dept_no);
+
+
+--Getting retiring employees only in Sales department 
+SELECT ri.emp_no,
+ri.first_name,
+ri.last_name,
+di.dept_name
+FROM retirement_info AS ri
+LEFT JOIN dept_info AS di
+ON ri.emp_no=  di.emp_no
+WHERE (di.dept_name = 'Sales');
+
+--Getting retiring employees only in Sales and Development department 
+SELECT ri.emp_no,
+ri.first_name,
+ri.last_name,
+di.dept_name
+FROM retirement_info AS ri
+LEFT JOIN dept_info AS di
+ON ri.emp_no=  di.emp_no
+WHERE di.dept_name IN ('Development', 'Sales');
